@@ -30,7 +30,7 @@ async function getConnection() {
 
 //endpoints
 
-//endpoint GET 
+/////////////endpoint GET: get all books
 app.get("/api/books", async (req, res) =>{
     //getConnection
     const conn = await getConnection();
@@ -44,7 +44,7 @@ app.get("/api/books", async (req, res) =>{
     res.json(results);
   });
 
-//endpoint GET with id
+/////////////endpoint GET with id: get book by id
 app.get('/books/:id', async (req, res) => {
     ///get id by params
     const id = req.params.id;
@@ -69,7 +69,7 @@ app.get('/books/:id', async (req, res) => {
     res.json(result);
   })
 
-  //endpoint POST
+  /////////endpoint POST: add new book
   app.post("/books", async (req, res) => {
     ///get data by bodyparams
     const dataBooks = req.body;
@@ -92,14 +92,41 @@ app.get('/books/:id', async (req, res) => {
         });
         return;
       }
+      ////result successful
       res.json({
         success: true,
         id: result.insertId
       });
     } catch (error) {
+        ////result unsuccessful/error
       res.json({
         success: false,
         message: `Ha habido un problema: ${error}`,
       });
     }
   });
+
+/////////endpoint PUT: update book
+app.put("/books/:id", async (req, res) => {
+    ///get data by bodyparams
+    const dataBooks = req.body;
+    const { title, author, genre, release_year, country, description} = dataBooks;
+    ///get id by params
+    const id = req.params.id;
+    //Check if the book exists in the DB
+    const queyUpdateBook =
+      "UPDATE library SET title = ?, author = ?, genre = ?, release_year = ?, country = ?, description = ? WHERE idBook = ?";
+    //getConnection
+    const conn = await getConnection();
+    //Execute query
+    const [result] = await conn.query(queyUpdateBook, [
+    title, author, genre, release_year, country, description, id
+    ]);
+    ///response
+    res.json({
+      success: true,
+      message: "Enhorabuena! Tu libro se ha actualizado correctamente",
+    });
+  });
+
+/////////endpoint DELETE: delete book
