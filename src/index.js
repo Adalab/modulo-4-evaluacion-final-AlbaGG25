@@ -69,3 +69,37 @@ app.get('/books/:id', async (req, res) => {
     res.json(result);
   })
 
+  //endpoint POST
+  app.post("/books", async (req, res) => {
+    ///get data by bodyparams
+    const dataBooks = req.body;
+    const { title, author, genre, release_year, country, description} = dataBooks;
+    //Query
+    const queryNewBook =
+      "INSERT INTO library (title, author, genre, release_year, country, description) VALUES (?, ?, ?, ?, ?, ?);";
+    try {
+       //getConnection
+      const conn = await getConnection();
+       //Execute query
+      const [result] = await conn.query(queryNewBook, [
+        title, author, genre, release_year, country, description
+      ]);
+      //Check if the book is already in the DB
+      if (result.affectedRows === 0) {
+        res.json({
+          success: false,
+          message: "Tu libro no se ha añadido. Prueba con otro",
+        });
+        return;
+      }
+      res.json({
+        success: true,
+        id: result.insertId
+      });
+    } catch (error) {
+      res.json({
+        success: false,
+        message: `Ha habido un problema: ${error}`,
+      });
+    }
+  });
