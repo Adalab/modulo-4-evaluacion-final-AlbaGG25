@@ -38,8 +38,6 @@ app.get("/api/books", async (req, res) =>{
     const queryBooks = "SELECT * FROM library";
     //Execute query
     const [results] = await conn.query(queryBooks);
-    console.log(results);
-  
     //End connection
     conn.end();
     //response
@@ -47,3 +45,27 @@ app.get("/api/books", async (req, res) =>{
   });
 
 //endpoint GET with id
+app.get('/books/:id', async (req, res) => {
+    ///get id by params
+    const id = req.params.id;
+    //Query
+    const queryBook = 'SELECT * FROM library WHERE idBook = ?';
+    //getConnection
+    const conn = await getConnection();
+    //Execute query
+    const [result] = await conn.query(queryBook, id);
+    //End connection
+    conn.end();
+    const numOfElements = result.length;
+    //response when the id doesn`t exist in the DB
+    if (numOfElements === 0) {
+      res.json({
+        success: true,
+        message: "Creo que no hemos encontrado tu libro",
+      });
+      return;
+    }
+    //response
+    res.json(result);
+  })
+
