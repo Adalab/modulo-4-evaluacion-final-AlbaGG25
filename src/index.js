@@ -113,13 +113,13 @@ app.put("/books/:id", async (req, res) => {
     const { title, author, genre, release_year, country, description} = dataBooks;
     ///get id by params
     const id = req.params.id;
-    //Check if the book exists in the DB
-    const queyUpdateBook =
+    //Check if the book exists in the DB and update it
+    const queryUpdateBook =
       "UPDATE library SET title = ?, author = ?, genre = ?, release_year = ?, country = ?, description = ? WHERE idBook = ?";
     //getConnection
     const conn = await getConnection();
     //Execute query
-    const [result] = await conn.query(queyUpdateBook, [
+    const [result] = await conn.query(queryUpdateBook, [
     title, author, genre, release_year, country, description, id
     ]);
     ///response
@@ -130,3 +130,20 @@ app.put("/books/:id", async (req, res) => {
   });
 
 /////////endpoint DELETE: delete book
+app.delete("/books/:id", async (req, res) => {
+     ///get id by params
+     const id = req.params.id;
+    //Check if the book exists in the DB and delete it
+     const queryDeleteBook =
+     "DELETE FROM library WHERE idBook = ?";
+    //getConnection
+    const conn = await getConnection();
+    //Execute query
+    const [result] = await conn.query(queryDeleteBook, id);
+    res.json({
+      success: true,
+      message: "Tu libro se ha eliminado correctamente",
+    });
+  });
+
+  

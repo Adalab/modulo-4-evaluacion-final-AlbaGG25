@@ -19,3 +19,5 @@ SELECT * FROM library WHERE idBook = 2;
 SELECT * FROM library;
 
 UPDATE library SET title = "Love, Guilt and Reparation", author = "Melanie Klein", genre = "NonFiction", release_year = 1975, country = "England", description = "This book shows the growth of Melanie Klein's work and ideas between 1921 and 1945, and traces her theories on childhood development, criminality and childhood psychosis, symbol formation, and the early development of conscience" WHERE idBook = 6;
+
+DELETE FROM library WHERE idBook = 7;
