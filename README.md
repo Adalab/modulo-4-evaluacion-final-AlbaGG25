@@ -74,14 +74,14 @@ request POST /api/signup
 
 response 
 - if the user has been added: {success: true, token: token, id: id}
-- if the request is unsuccessful: {"success": false, msg: 'Error' }
+- if the request is unsuccessful: {"success": false, message: 'Error' }
 
 ### Log in
 request POST /api/login
 
 response 
 - if the credentials are correct: {success: true, token, username: username}
-- if the credentials are incorrect: { success: false, error: "Las credenciales que has introducido no son válidas" }
+- if the credentials are incorrect: { success: false, message: "Las credenciales que has introducido no son válidas" }
 
 
 
@@ -99,5 +99,5 @@ Use  $ git clone https://github.com/Adalab/modulo-4-evaluacion-final-AlbaGG25.gi
 
 ## ✒️ Author
 
-[![Autor](https://img.shields.io/badge/-%20Alba%20Ginés%20-%20pink?logo=github&labelColor=grey&color=rgb(92%2C%20201%2C%20245))](https://github.com/AlbaGG25)
+[![Autor](https://img.shields.io/badge/-%20Alba%20Ginés%20García%20-%20pink?logo=github&labelColor=grey&color=rgb(92%2C%20201%2C%20245))](https://github.com/AlbaGG25)
 

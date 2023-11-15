@@ -166,7 +166,7 @@ app.post("/api/signup", async (req, res) => {
     //getConnection and Execute query
     jwt.sign(password, 'secret_key', async (error, token) => {
         if (error) {
-          res.status(400).send({"success": false, msg: 'Error' });
+          res.status(400).send({"success": false, message: 'Error' });
         } else {
           const conn = await getConnection();
           const [result] = await conn.query(querySignUp, [username, email,passwordHashed]);
@@ -198,7 +198,7 @@ app.post("/api/login", async (req, res) => {
         : await bcrypt.compare(password, user.password);
     ///Incorrect credentials: unsuccessful request
     if (!(passwordCorrect && user)) {
-      return res.json({ success: false, error: "Las credenciales que has introducido no son válidas" });
+      return res.json({ success: false, message: "Las credenciales que has introducido no son válidas" });
     }
     //Correct credentials: successful request
     const goodToken = {
