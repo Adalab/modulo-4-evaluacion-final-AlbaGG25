@@ -12,10 +12,10 @@ app.use(express.json({limit: "25MB"}));
 async function getConnection() {
     //create & config connection
     const connection = await mysql.createConnection({
-      host: process.env.DB_HOST, //sql.freedb.tech
-      user: process.env.DB_USER, //freedb_AlbaEv
+      host: process.env.DB_HOST, 
+      user: process.env.DB_USER, 
       password: process.env.DB_PASS,
-      database: process.env.DB_DATABASE //freedb_myLibrary
+      database: process.env.DB_DATABASE 
     });
   
     connection.connect();
