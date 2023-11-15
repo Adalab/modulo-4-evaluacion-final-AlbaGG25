@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');
-require('dotenv').config()
+require('dotenv').config();
+const jwt = require('jsonwebtoken');    
+const bcrypt = require("bcrypt");
 
 //create and config server
 const app = express();
@@ -21,6 +23,11 @@ async function getConnection() {
     connection.connect();
     return connection;
   }
+
+  const generateToken = (payload) => {
+    const token = jwt.sign(payload, "secret", { expiresIn: "12h" });
+    return token;
+  };
 
 //init server/listener
   const serverPort = process.env.PORT || 4000;
@@ -144,5 +151,33 @@ app.delete("/books/:id", async (req, res) => {
       success: true,
       message: "Tu libro se ha eliminado correctamente",
     });
+    conn.end();
   });
 
+////////endpoint SIGN UP
+app.post("/api/signup", async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const email = req.body.email;
+    //use bcrypt to encrypt password
+    const passwordHashed = await bcrypt.hash(password, 10);
+    //query
+    const querySignUp = "INSERT INTO users_db (username, email, password) VALUES (?, ? ,?)";
+    //getConnection and Execute query
+    jwt.sign(password, 'secret_key', async (error, token) => {
+        if (error) {
+          res.status(400).send({"success": false, msg: 'Error' });
+        } else {
+          const conn = await getConnection();
+          const [result] = await conn.query(querySignUp, [username, email,passwordHashed]);
+          conn.end();
+          res.json({
+            success: true,
+            token: token,
+            id: result.insertId
+          });
+        }
+      });
+  });
+  
+  
