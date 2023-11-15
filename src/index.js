@@ -56,7 +56,7 @@ app.get('/books/:id', async (req, res) => {
     const [result] = await conn.query(queryBook, id);
     //End connection
     conn.end();
-    //response when the id doesn`t exist in the DB
+    //response when the id doesn´t exist in the DB
     const numOfElements = result.length;
     if (numOfElements === 0) {
       res.json({
