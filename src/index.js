@@ -10,12 +10,12 @@ app.use(express.json({limit: "25MB"}));
 
 ///BD connection
 async function getConnection() {
-    //creary configurar la conexion
+    //create & config connection
     const connection = await mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
+      host: process.env.DB_HOST, //sql.freedb.tech
+      user: process.env.DB_USER, //freedb_AlbaEv
       password: process.env.DB_PASS,
-      database: process.env.DB_DATABASE
+      database: process.env.DB_DATABASE //freedb_myLibrary
     });
   
     connection.connect();
@@ -23,7 +23,7 @@ async function getConnection() {
   }
 
 //init server/listener
-  const serverPort = 4000;
+  const serverPort = process.env.PORT || 4000;
   app.listen(serverPort, () => {
     console.log(`Server listening at http://localhost:${serverPort}`);
   });
@@ -56,8 +56,8 @@ app.get('/books/:id', async (req, res) => {
     const [result] = await conn.query(queryBook, id);
     //End connection
     conn.end();
-    const numOfElements = result.length;
     //response when the id doesn`t exist in the DB
+    const numOfElements = result.length;
     if (numOfElements === 0) {
       res.json({
         success: true,
@@ -146,4 +146,3 @@ app.delete("/books/:id", async (req, res) => {
     });
   });
 
-  
