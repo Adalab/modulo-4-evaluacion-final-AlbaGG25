@@ -181,3 +181,34 @@ app.post("/api/signup", async (req, res) => {
   });
   
 ////////endpoint LOGIN
+app.post("/api/login", async (req, res) => {
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    //query to check if the user exists in the DB
+    const queryLogin = "SELECT * FROM users_db WHERE email = ?";
+    //getConnection and Execute query, get only the first user
+    const conn = await getConnection();
+    const [users] = await conn.query(queryLogin, [email]);
+    const user = users[0]; 
+    //check if the user password are the ones in the DB
+    const passwordCorrect =
+      user === null
+        ? false
+        : await bcrypt.compare(password, user.password);
+    ///Incorrect credentials: unsuccessful request
+    if (!(passwordCorrect && user)) {
+      return res.json({ success: false, error: "Las credenciales que has introducido no son válidas" });
+    }
+    //Correct credentials: successful request
+    const goodToken = {
+      email: user.email,
+      id: user.id,
+    };
+    const token = generateToken(goodToken);
+    res.json({ 
+        success: true, 
+        token, 
+        username: user.username 
+    });
+  });

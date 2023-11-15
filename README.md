@@ -2,6 +2,9 @@
 
 The following project is an API that allows to create, read, update and delete elements.
 
+There is an authenticacion process where you can sign up as user and login.
+
+
 ### Get list of all the books in the library
 request GET /api/books
 
@@ -72,6 +75,13 @@ request POST /api/signup
 response 
 - if the user has been added: {success: true, token: token, id: id}
 - if the request is unsuccessful: {"success": false, msg: 'Error' }
+
+### Log in
+request POST /api/login
+
+response 
+- if the credentials are correct: {success: true, token, username: username}
+- if the credentials are incorrect: { success: false, error: "Las credenciales que has introducido no son válidas" }
 
 
 
