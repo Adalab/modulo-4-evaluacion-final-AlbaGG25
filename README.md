@@ -1,6 +1,6 @@
 # Evaluación final Módulo 4
 
-The following project is an API that allows to create, read, update and delete elements.
+The following project is an API of books that allows to create, read, update and delete elements. 
 
 There is an authenticacion process where you can sign up as user and login.
 
