@@ -4,7 +4,9 @@ The following project is an API that allows to create, read, update and delete e
 
 ### Get list of all the books in the library
 request GET /api/books
+
 response 
+
 [
 {
   "idBook": 1,
@@ -28,7 +30,9 @@ response
 
 ### Get only one book in the library
 request GET /books/id
+
 response 
+
 [
 {
   "idBook": 8,
@@ -43,23 +47,28 @@ response
 
 ### Add a new book to the library
 request POST /books
+
 response 
+
 - if the book already exists in the library: {success: false,message: "Tu libro no se ha añadido. Prueba con otro",}
 - if its added successfully: { success: true, id: id }
 - if the request is unsuccessful: {success: false, message: "Ha habido un problema: error"}
 
-### Update a book to the library
+### Update a book in the library
 request PUT /book/id
+
 response 
 - if it has been updated: {success: true,message: "Enhorabuena! Tu libro se ha actualizado correctamente"}
 
-### Delete a book to the library
+### Delete a book in the library
 request DELETE /book/id
+
 response 
 - if it has been deleted: {success: true, message: "Tu libro se ha eliminado correctamente"}
 
 ### Sign Up
 request POST /api/signup
+
 response 
 - if the user has been added: {success: true, token: token, id: id}
 - if the request is unsuccessful: {"success": false, msg: 'Error' }
