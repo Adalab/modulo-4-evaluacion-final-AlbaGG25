@@ -1,4 +1,4 @@
-# Evaluación final Módulo 4
+# Library Databse
 
 The following project is an API of books that allows to create, read, update and delete elements. 
 
@@ -95,7 +95,7 @@ response
 6. **Node.js**
 
 ## :wrench: Installation
-Use  $ git clone https://github.com/Adalab/modulo-4-evaluacion-final-AlbaGG25.git
+Use  $ git clone https://github.com/AlbaGG25/library.git
 
 ## ✒️ Author
 
