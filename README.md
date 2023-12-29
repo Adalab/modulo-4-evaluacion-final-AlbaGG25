@@ -1,4 +1,4 @@
-# Library Databse
+# Library Database
 
 The following project is an API of books that allows to create, read, update and delete elements. 
 
